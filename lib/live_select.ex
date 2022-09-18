@@ -144,7 +144,7 @@ defmodule LiveSelect do
   ```
   """
 
-  import Phoenix.LiveView.Helpers
+  import Phoenix.Component
   alias LiveSelect.ChangeMsg
 
   @doc ~S"""
