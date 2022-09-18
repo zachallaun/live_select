@@ -9,14 +9,14 @@ defmodule LiveSelect do
 
   Selection can happen either using the keyboard, by navigating the options with the arrow keys and then pressing enter, or by
   clicking an option with the mouse.
-    
+
   Whenever an option is selected, `LiveSelect` will trigger a standard `phx-change` event in the form. See the "Examples" section
   below for details on how to handle the event.
 
   After an option has been selected, the selection can be undone by clicking on text field.
 
   ![demo](assets/demo.gif)
-     
+
   ## Reacting to user's input
 
   Whenever the user types something in the text input, LiveSelect sends a `t:LiveSelect.ChangeMsg.t/0` message to your LiveView.
@@ -26,7 +26,7 @@ defmodule LiveSelect do
 
   ## Styling
 
-  You can use the `style` option in `live_select/3` to control which style will be used by default. Currently supported values are 
+  You can use the `style` option in `live_select/3` to control which style will be used by default. Currently supported values are
   `:daisyui` (default) or `:none` (no predefined styles). Support for vanilla Tailwind styles is planned for the future. LiveSelect can style the following elements:
 
   1. The outer container of the component
@@ -70,11 +70,11 @@ defmodule LiveSelect do
   The LiveSelect main form input is called `city_search`.
   When a city is selected, the coordinates of that city will be the value of the form input.
   Then name of the selected city is available in the text input field named `city_search_text_input`.
-    
+
   Template:
   ```
   <.form for={:my_form} let={f} phx-change="change">
-      <%= live_select f, :city_search %> 
+      <%= live_select f, :city_search %>
   </.form>
   ```
 
@@ -83,7 +83,7 @@ defmodule LiveSelect do
   import LiveSelect
 
   @impl true
-  def handle_info(%LiveSelect.ChangeMsg{} = change_msg, socket) do 
+  def handle_info(%LiveSelect.ChangeMsg{} = change_msg, socket) do
     cities = City.search(change_msg.text)
     # cities could be:
     # [ {"city name 1", [lat_1, long_1]}, {"city name 2", [lat_2, long_2]}, ... ]
@@ -92,13 +92,13 @@ defmodule LiveSelect do
     # [ "city name 1", "city name 2", ... ]
     #
     # or:
-    # [ [label: "city name 1", value: [lat_1, long_1]], [label: "city name 2", value: [lat_2, long_2]], ... ] 
+    # [ [label: "city name 1", value: [lat_1, long_1]], [label: "city name 2", value: [lat_2, long_2]], ... ]
     #
     # or even:
     # ["city name 1": [lat_1, long_1], "city name 2": [lat_2, long_2]]
 
     update_options(change_msg, cities)
-    
+
     {:noreply, socket}
   end
 
@@ -111,18 +111,18 @@ defmodule LiveSelect do
     IO.puts("You selected city #{city_name} located at: #{city_coords}")
 
     {:noreply, socket}
-  end  
+  end
   ```
 
-  ### Multiple LiveSelect inputs in the same LiveView  
-    
-  If you have multiple LiveSelect inputs in the same LiveView, you can distinguish them based on the input field. 
+  ### Multiple LiveSelect inputs in the same LiveView
+
+  If you have multiple LiveSelect inputs in the same LiveView, you can distinguish them based on the input field.
   For example:
 
   Template:
   ```
   <.form for={:my_form} let={f} phx-change="change">
-      <%= live_select f, :city_search %> 
+      <%= live_select f, :city_search %>
       <%= live_select f, :album_search %>
   </.form>
   ```
@@ -152,11 +152,11 @@ defmodule LiveSelect do
 
   LiveSelect renders a hidden input with name `field` which contains the selected option.
   The visible text input field will have the name `#{field}_text_input`.
-    
+
   **Opts:**
 
   * `disabled` - set this to a truthy value to disable the input field
-  * `placeholder` - placeholder text for the input field  
+  * `placeholder` - placeholder text for the input field
   * `debounce` - number of milliseconds to wait after the last keystroke before sending a `t:LiveSelect.ChangeMsg.t/0` message. Defaults to 100ms.
   * `search_term_min_length` - the minimum length of text in the search field that will trigger an update of the dropdown. It has to be a positive integer. Defaults to 3.
   * `style` - either `:daisyui` for daisyui styling (default) or `:none` for no styling. See the "Styles" section above.
@@ -168,7 +168,7 @@ defmodule LiveSelect do
   * `dropdown_class`
   * `dropdown_extra_class`
   * `active_option_class`
-    
+
   """
   def live_select(form, field, opts \\ [])
       when (is_binary(field) or is_atom(field)) and is_list(opts) do
@@ -195,7 +195,7 @@ defmodule LiveSelect do
 
   Each option will be assigned a label, which will be shown in the dropdown, and a value, which will be the value of the
   LiveSelect input when the option is selected.
-   
+
   `options` can be any enumerable of the following elements:
 
   * _atoms, strings or numbers_: In this case, each element will be both label and value for the option
